@@ -1,0 +1,37 @@
+{
+    "family": "sample-fargate",
+    "networkMode": "awsvpc",
+    "taskRoleArn": "arn:aws:iam::339713093676:role/ecsTaskRole",
+    "executionRoleArn": "arn:aws:iam::339713093676:role/ecsTaskExecutionRole",
+    "containerDefinitions": [
+        {
+            "name": "fargate-app",
+            "image": "339713093676.dkr.ecr.us-east-1.amazonaws.com/sample-repo:latest",
+            "portMappings": [
+                {
+                    "containerPort": 5173,
+                    "hostPort": 5173,
+                    "protocol": "tcp"
+                }
+            ],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "fargate-app",
+                    "awslogs-region": "ca-central-1",
+                    "awslogs-stream-prefix": "sample-fargate"
+                }
+            },
+            "essential": true,
+            "entryPoint": [
+                "sh",
+                "-c"
+            ]
+        }
+    ],
+    "requiresCompatibilities": [
+        "FARGATE"
+    ],
+    "cpu": "256",
+    "memory": "512"
+}
